@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Ensure that models migrated, django server run and staticfiles collected.
+
+# Exit immediately if error status
+set -o errexit
+
+# Pipeline all commands to pass 
+set -o pipefail
+
+# If uninitialized variable used, exit
+set -o nounset 
+
+python manage.py migrate --no-input
+python manage.py collectstatic --no-input
+
+exec python manage.py runserver 0.0.0.0:8000
